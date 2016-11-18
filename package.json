@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/andela-rakpan/inverted-index/issues"
   },
-  "homepage": "https://github.com/andela-rakpan/inverted-index#readme"
+  "homepage": "https://github.com/andela-rakpan/inverted-index#readme",
+  "devDependencies": {
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.1",
+    "eslint-plugin-react": "^6.7.1"
+  }
 }
