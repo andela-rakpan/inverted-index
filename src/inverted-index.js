@@ -9,7 +9,7 @@ class Index {
 
   createIndex(filePath){
     filePath.forEach( content =>{
-      for(var property in content){
+      for(let property in content){
         let regex = /\w+/g;
         let text = content[property].toLowerCase().match(regex);
 
@@ -28,5 +28,9 @@ class Index {
       }
       this._i++;
     });
+  }
+
+  getIndex(){
+    return this._indexMap;
   }
 }
