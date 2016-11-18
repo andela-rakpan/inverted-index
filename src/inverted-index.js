@@ -33,4 +33,13 @@ class Index {
   getIndex(){
     return this._indexMap;
   }
+
+  searchIndex(terms){
+    terms = terms.toLowerCase();
+    let check = this._indexMap.hasOwnProperty(terms);
+    if(check){
+      return this._indexMap[terms];
+    }
+    return false;
+  }
 }
