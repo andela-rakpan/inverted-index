@@ -24,9 +24,12 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.1",
     "eslint-plugin-react": "^6.7.1",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-jasmine-livereload-task": "^0.10.1",
+    "jasmine": "^2.5.2"
   },
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "path": "^0.12.7"
   }
 }
