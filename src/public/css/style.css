@@ -1,4 +1,13 @@
 
 .label-success {
-    font-size: 150%;
+    font-size: 120%;
+}
+
+.center {
+    width: 60%;
+    margin: auto;
+}
+
+.btn {
+    width: 150px;
 }

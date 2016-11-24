@@ -11,11 +11,11 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
 
-  <body>
+  <body ng-app="IndexApp">
       <!--Header-->
     <header>
       <!--Navigation Bar-->
-      <div class="navbar navbar-default navbar-fixed-top">
+      <div class="navbar navbar-inverse">
         <div class="container">
           <div class="navbar-header">
             <a href="#" class="navbar-brand">Inverted Index App</a>
@@ -23,43 +23,35 @@
         </div>
       </div>
 
-      <!--Jumbtron-->
-      <div class="jumbotron">
-        <div class="container">
-          <h1>Inverted Index</h1>
-        </div>
-      </div>
     </header>
     <!--End of Header-->
 
     <div class="container">
-      <div class="col-md-6">
-        <!--Form-->
-        <div class="well">
-         <form class="form-vertical" role="form">
-          <h2 class="text-center"> Upload Your Files </h2>
+      <div class="text-center center">
+
+        <div class="well" ng-controller="fileController">
+          <h2 class="text-center"> Upload Your Files and Search </h2>
           <hr />
-          <div class="form-group">
-            <label class="btn btn-success btn-block btn-lg" for="file-selector">
-                <input id="file-selector" type="file" style="display:none;" onchange="$('#file-info').html($(this).val().replace('C:\\fakepath\\', ''));">
+            <label class="btn btn-success btn-lg"
+                for="file-selector">
+              <input id="file-selector" type="file"
+                file-model="fileToUpload" style="display:none;"
+                ngf-pattern="'application/json'"
+                accept="application/json"
+                />
                 Browse File...
             </label>
-            <br/>
-            <label class="label label-success" id="file-info"></label>
-          </div>
-            <button type="submit" class="btn btn-primary btn-block btn-lg">
-              Submit
+            <button ng-click="uploadFile()" ng-hide="upload" class="btn btn-primary btn-lg">
+              Upload File
             </button>
-         </form>
+            <button ng-click="" ng-hide="create" class="btn btn-info btn-lg">
+              Create Index
+            </button>
+            <br /> <br />
+            <p class="label label-success" id="msg">{{errorMsg}}</p>
         </div>
       </div>
-
-      <!--Sidebar-->
-      <div class="col-md-6">
-        <div class="well text-center">
-          <h3> Uploaded Files</h3>
-        </div>
-      </div>
+  </div>
 
   </div>
    <!-- Fixed Footer -->
@@ -80,6 +72,8 @@
     <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
