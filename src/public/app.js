@@ -1,40 +1,56 @@
+'use strict';
+var invertedIndex = new Index();
 var indexApp = angular.module('IndexApp', []);
+var fileContent = {};
 
+//Controller for file
 indexApp.controller('fileController', ['$scope', function($scope) {
   $scope.create = true;
   $scope.upload = false;
+  $scope.index  = 0;
+  $scope.terms = [];
+  $scope.indexMap = {};
+  $scope.fileNum = 0;
+  $scope.files   = [];
 
-  $scope.uploadFile = function(){
-    var file = document.getElementById('file-selector').files[0]
-    alert(file);
-    if(!file){
-      $scope.errorMsg = "No file selected";
-    }else{
-      alert('GOT HERE');
-      $('#msg').html("File Uploaded...");
-      /*var file = document.getElementById('file-selector').files[0];
-      var fileReader = new FileReader();
-      fileReader.readAsText(file);
-      fileReader.onload = function(){
-      var fileContent = fileReader.result;
-      uploadFile(fileContent);
-
-      }; */
-      $scope.create = false;
-      $scope.upload = true;
-      };
+  //Upload file
+  $scope.uploadFile = function() {
+    var file = document.getElementById('file-selector').files[0];
+    if (!file) {
+      $('#msg').html("No file selected");
+    } else {
+        var file = document.getElementById('file-selector').files[0];
+        if ($scope.files.indexOf(file.name) !== -1) {
+          $('#msg').html("File ALREADY uploaded");
+          return;
+        };
+        $scope.files.push(file.name);
+        var fileReader = new FileReader();
+        fileReader.readAsText(file);
+        fileReader.onload = function(){
+          var content = fileReader.result;
+          fileContent = JSON.parse(content);
+          $('#msg').html("File Uploaded...")
+        };
+        $scope.create = false;
+        $scope.upload = true;
+    };
+  };
+  //Create and display index
+  $scope.createInd = function() {
+    $scope.fileNum++;
+    invertedIndex.createIndex(fileContent);
+    $scope.indexMap = invertedIndex.getIndex();
+    $scope.terms = Object.keys($scope.indexMap[$scope.fileNum]);
+    $scope.index = $scope.fileNum;
+    $scope.create = true;
+    $scope.upload = false;
   };
 
-  var uploadFile = function (fileContent){
-    var content = JSON.parse(fileContent);
-    alert(fileContent);
-    //console.log(content);
-    //content.forEach(function(value){
-    //console.log(value.title);
-    //});
-  }
-
-  $scope.validate = function(){
-    console.log('changed');
+  $scope.display = function(file) {
+    $scope.index = $scope.files.indexOf(file) + 1;
+    $scope.terms = Object.keys($scope.indexMap[$scope.index]);
   };
 }]);
+
+

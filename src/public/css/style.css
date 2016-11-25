@@ -1,4 +1,6 @@
-
+body {
+    font-family: Candara;
+}
 .label-success {
     font-size: 120%;
 }
@@ -10,4 +12,36 @@
 
 .btn {
     width: 150px;
+}
+
+#search-input {
+    width: 450px;
+    height: 50px;
+
+    font-size: 140%;
+}
+
+.input-group {
+    margin: auto;
+}
+
+.input-group-addon {
+    font-size: 140%;
+}
+
+.index-contain {
+    width: 80%;
+    margin: auto;
+}
+.well {
+    background-color: AliceBlue;
+}
+
+.navbar-brand {
+    font-size: 150%;
+}
+
+.jumbotron {
+    color: white;
+    background-color: #36a;
 }

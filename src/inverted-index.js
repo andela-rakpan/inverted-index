@@ -1,11 +1,15 @@
 'use strict'
+
 /*This is the Index Class. It has methods for creating
 and searching through indexes from a JSON array object*/
 class Index {
   constructor() {
-    this._indexMap = {};
-    this._i = 1;
-  }
+        this._indexMap = {};
+        this._i = 1;
+        this.result = [];
+        this._fileCount = 1;
+        this._map = {};
+    }
 
   createIndex(filePath){
     filePath.forEach( content =>{
@@ -28,18 +32,27 @@ class Index {
       }
       this._i++;
     });
+    this._map[this._fileCount] = this._indexMap;
+    this._fileCount++;
+    this._indexMap = {};
+    this._i = 1;
   }
 
+  //Get Index Method
   getIndex(){
-    return this._indexMap;
+    return this._map;
   }
 
-  searchIndex(terms){
+  searchIndex(terms) {
     terms = terms.toLowerCase();
     let check = this._indexMap.hasOwnProperty(terms);
     if(check){
       return this._indexMap[terms];
     }
     return false;
+  }
+
+  sayHi() {
+    alert('Hi from Index');
   }
 }
