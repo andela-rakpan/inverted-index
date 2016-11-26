@@ -39,17 +39,43 @@ class Index {
   }
 
   //Get Index Method
-  getIndex(){
-    return this._map;
-  }
-
-  searchIndex(terms) {
-    terms = terms.toLowerCase();
-    let check = this._indexMap.hasOwnProperty(terms);
-    if(check){
-      return this._indexMap[terms];
+  getIndex(doc, term){
+        if(!term){
+          return this._map;
+        }else{
+          if(doc && this._map[doc][term]){
+            return this._map[doc][term];
+          }
+        }
+        return [];
     }
-    return false;
+
+  //Search Index Method
+  searchIndex(doc, terms){
+    //Check if arguments are empty
+    if(!doc || !terms){
+      console.log('Invalid arguments');
+      return [];
+    }
+
+    terms = terms.toLowerCase();
+
+    // for varied terms
+    let regex = /\w+/g;
+    let term = terms.match(regex);
+    if (term.length === 1) {
+      return this.getIndex(doc,terms);
+    } else {
+      let results = {};
+      term.forEach( (item) => {
+        let value = this.getIndex(doc,item);
+        if(value.length === 1){
+            results[item] = value;
+        }
+      });
+      if(Object.keys(results).length >= 1) return results;
+    }
+    return [];
   }
 
   sayHi() {

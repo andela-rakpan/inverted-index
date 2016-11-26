@@ -59,11 +59,11 @@
                 Browse File...
             </label>
             <button ng-click="uploadFile()" ng-hide="upload"
-              class="btn btn-info btn-lg">
+              class="btn btn-primary btn-lg">
               Upload File
             </button>
             <button ng-click="createInd()" ng-hide="create"
-              class="btn btn-info btn-lg">
+              class="btn btn-primary btn-lg">
               Create Index
             </button>
             <br /> <br />
@@ -111,13 +111,51 @@
             <!--Search Button-->
               <div class="input-group">
                     <input type="text" class="form-control"
-                       placeholder="Search Terms" id="search-input">
-                    <a class="input-group-addon btn btn-info btn-lg">
+                       placeholder="Search Terms" id="search-input"
+                       ng-model="searchInput">
+                    <a class="input-group-addon btn btn-primary btn-lg"
+                      ng-click="search()">
                       <span class="glyphicon glyphicon-search"></span>
-                      Search Index
                     </a>
               </div>
             </div>
+            <hr />
+
+            <!--Display Search Result-->
+            <div class="well panel panel-default searchPanel panel-success">
+              <h3> Search Resullts: </h3>
+            <div class="panel-heading">
+              <h2 class="panel-title text-center">File: {{files[index - 1]}}</h2>
+            </div>
+            <div class="panel-body">
+
+            <table class="table table-striped table-responsive table-hover">
+              <tr class="success">
+                <th>Searched Term</th>
+                <th>Doc-1</th>
+                <th>Doc-2</th>
+              </tr>
+
+              <!--Display Index-->
+              <tr ng-repeat="term in searchTerms">
+                <td>
+                  {{term}}
+                </td>
+                <td><span class="glyphicon
+                  {{searchResult[0]==1?
+                   'glyphicon-ok' : ''}}">
+                  </span>
+                </td>
+                <td><span class="glyphicon
+                  {{(searchResult[0]== 2 ||
+                  searchResult[1]== 2)?
+                  'glyphicon-ok' : ''}}">
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
         </div>
 
           <!--Display Uploaded Files-->
@@ -129,7 +167,7 @@
             <div class="panel-body">
               <ul class="list-group" ng-repeat="file in files">
                 <li class="list-group-item"><button
-                  class="btn btn-info btn-block btn-lg" ng-model="myFile"
+                  class="btn btn-primary btn-block btn-lg" ng-model="myFile"
                   ng-click="display(file)">
                   {{file}}</button></li>
               </ul>

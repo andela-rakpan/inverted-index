@@ -45,3 +45,8 @@ body {
     color: white;
     background-color: #36a;
 }
+
+.searchPanel {
+    width: 90%;
+    margin: auto;
+}

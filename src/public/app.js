@@ -45,12 +45,35 @@ indexApp.controller('fileController', ['$scope', function($scope) {
     $scope.index = $scope.fileNum;
     $scope.create = true;
     $scope.upload = false;
+    reset();
   };
 
   $scope.display = function(file) {
     $scope.index = $scope.files.indexOf(file) + 1;
     $scope.terms = Object.keys($scope.indexMap[$scope.index]);
+    reset();
   };
+
+  $scope.search = function() {
+    let input = $scope.searchInput;
+    let fileIndex = $scope.index;
+    let searchFile = $scope.files[fileIndex - 1];
+
+
+    //Split input terms into words
+    let regex = /\w+/g;
+    if($scope.searchInput && fileIndex){
+      $scope.searchTerms = $scope.searchInput.match(regex);
+      $scope.searchResult = invertedIndex.searchIndex(fileIndex,input);
+      console.log($scope.searchResult);
+      $scope.searchInput = '';
+    }
+  }
+
+  var reset = function () {
+    $scope.searchTerms = '';
+    $scope.searchResult = '';
+  }
 }]);
 
 
