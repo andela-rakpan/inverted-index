@@ -4,12 +4,12 @@
 and searching through indexes from a JSON array object*/
 class Index {
   constructor() {
-        this._indexMap = {};
-        this._i = 1;
-        this.result = [];
-        this._fileCount = 1;
-        this._map = {};
-    }
+    this._indexMap = {};
+    this._i = 1;
+    this.result = [];
+    this._fileCount = 1;
+    this._map = {};
+  }
 
   createIndex(filePath){
     filePath.forEach( content =>{
@@ -40,23 +40,25 @@ class Index {
 
   //Get Index Method
   getIndex(doc, term){
-        if(!term){
-          return this._map;
-        }else{
-          if(doc && this._map[doc][term]){
-            return this._map[doc][term];
-          }
-        }
-        return [];
+    if(!term){
+      return this._map;
+    }else{
+      if(doc && this._map[doc][term]){
+        return this._map[doc][term];
+      }
     }
+    return [];
+  }
 
-  //Search Index Method
+  // Search Index Method
   searchIndex(doc, terms){
-    //Check if arguments are empty
+    // Check if arguments are empty
     if(!doc || !terms){
       console.log('Invalid arguments');
       return [];
     }
+    // Handle array
+    terms = terms.toString();
 
     terms = terms.toLowerCase();
 
@@ -69,16 +71,12 @@ class Index {
       let results = {};
       term.forEach( (item) => {
         let value = this.getIndex(doc,item);
-        if(value.length === 1){
-            results[item] = value;
+        if(value.length >= 1){
+          results[item] = value;
         }
       });
       if(Object.keys(results).length >= 1) return results;
     }
     return [];
-  }
-
-  sayHi() {
-    alert('Hi from Index');
   }
 }
