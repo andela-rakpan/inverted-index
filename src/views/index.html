@@ -47,9 +47,9 @@
     <div class="container" ng-controller="fileController">
       <div class="text-center center">
         <div class="well">
-            <h2 class="title panel-heading"> Upload Your JSON Files and Search </h2>
+            <h2 class="title"> Upload Your JSON Files and Search </h2>
           <hr />
-            <label class="btn btn-success btn-lg"
+            <label class="btn btn-info btn-lg"
                 for="file-selector" ng-hide="upload">
               <input id="file-selector" type="file"
                 file-model="fileToUpload" style="display:none;"
@@ -67,15 +67,16 @@
               Create Index
             </button>
             <br /> <br />
-            <p class="label label-success" id="msg"></p>
+            <p class="label label-info" id="msg"></p>
         </div>
       </div>
 
       <!--Display Index-->
       <hr />
-          <div class="well panel panel-default col-md-8 panel-success">
+          <div class="well panel panel-default col-md-9 panel-success"
+            ng-hide="indexPanel">
             <div class="panel-heading">
-              <h2 class="panel-title text-center">File: {{files[index - 1]}}</h2>
+              <h2 class="panel-title text-center">File: {{currentFile}}</h2>
             </div>
             <div class="panel-body">
 
@@ -83,8 +84,7 @@
               <tr class="success">
                 <th></th>
                 <th>Term</th>
-                <th>Doc-1</th>
-                <th>Doc-2</th>
+                <th ng-repeat="num in fileObj[currentFile]"> Doc-{{num}} </th>
               </tr>
 
               <!--Display Index-->
@@ -93,15 +93,10 @@
                 <td>
                   {{term}}
                 </td>
-                <td><span class="glyphicon
-                  {{indexMap[index][term][0]==1?
+                <td ng-repeat="num in fileObj[currentFile]">
+                  <span class="glyphicon
+                  {{indexMap[index][term].indexOf(num)!=-1?
                    'glyphicon-ok' : ''}}">
-                  </span>
-                </td>
-                <td><span class="glyphicon
-                  {{(indexMap[index][term][0]== 2 ||
-                  indexMap[index][term][1]== 2)?
-                  'glyphicon-ok' : ''}}">
                   </span>
                 </td>
               </tr>
@@ -109,31 +104,37 @@
           </div>
             <div class="panel-heading">
             <!--Search Button-->
+            <form>
               <div class="input-group">
                     <input type="text" class="form-control"
                        placeholder="Search Terms" id="search-input"
-                       ng-model="searchInput">
-                    <a class="input-group-addon btn btn-primary btn-lg"
+                       ng-model="searchInput" ng-change="showPanel()">
+                    <a class="btn btn-info search-btn"
                       ng-click="search()">
                       <span class="glyphicon glyphicon-search"></span>
                     </a>
+                    <span class="all-files">
+                    <input type="checkbox" ng-model="searchCheck" ng-change="searchAll()" id="ng-change-example1" /> All Files</span>
               </div>
+            </form>
             </div>
             <hr />
 
             <!--Display Search Result-->
-            <div class="well panel panel-default searchPanel panel-success">
-              <h3> Search Resullts: </h3>
+            <div class="well" ng-hide="hideResult">
+            <h3> Search Results: </h3>
+
+            <div class="panel panel-default searchPanel panel-success"
+                ng-repeat="file in searchFiles">
             <div class="panel-heading">
-              <h2 class="panel-title text-center">File: {{files[index - 1]}}</h2>
+              <h2 class="panel-title text-center">File: {{file}}</h2>
             </div>
             <div class="panel-body">
 
             <table class="table table-striped table-responsive table-hover">
               <tr class="success">
-                <th>Searched Term</th>
-                <th>Doc-1</th>
-                <th>Doc-2</th>
+                <th>Searched Terms</th>
+                <th ng-repeat="num in fileObj[file]">Doc-{{num}}</th>
               </tr>
 
               <!--Display Index-->
@@ -141,15 +142,11 @@
                 <td>
                   {{term}}
                 </td>
-                <td><span class="glyphicon
-                  {{searchResult[0]==1?
+                <td ng-repeat="num in fileObj[file]">
+                  <span class="glyphicon
+                  {{( (searchResult[file][term].indexOf(num) != -1 && searchResult[file][term].indexOf(num) != undefined) ||
+                  (searchResult[file].indexOf(num) != -1 && searchResult[file].indexOf(num) != undefined) )?
                    'glyphicon-ok' : ''}}">
-                  </span>
-                </td>
-                <td><span class="glyphicon
-                  {{(searchResult[0]== 2 ||
-                  searchResult[1]== 2)?
-                  'glyphicon-ok' : ''}}">
                   </span>
                 </td>
               </tr>
@@ -157,9 +154,10 @@
           </div>
         </div>
         </div>
+        </div>
 
           <!--Display Uploaded Files-->
-          <div class="well col-md-4">
+          <div class="well col-md-3" ng-hide="indexPanel">
             <div class="panel panel-default panel-success">
             <div class="panel-heading">
               <h2 class="panel-title text-center">Uploaded Files</h2>
@@ -181,10 +179,10 @@
    <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
       <div class="navbar-text pull-left">
-        <p>&copy; 2016 #TIA.</p>
+        <p>All rights reserved! &copy; 2016 #TIA.</p>
       </div>
       <div class="navbar-text pull-right">
-        <p> Raphael Ifiok Akpan
+        <p> Slack: @raphael || Email: raphael.akpan@andela.com
       </div>
     </div>
    </div>
