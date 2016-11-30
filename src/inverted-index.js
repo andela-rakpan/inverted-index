@@ -1,17 +1,28 @@
 /* eslint-disable no-unused-vars */
-/** This is the Index Class. It has methods for creating
-and searching through indexes from a JSON array object*/
+/* eslint-disable valid-jsdoc */
+
+/**
+ * @class Index
+ */
 class Index {
+  // The constructor initializes
+  /**
+   * @constructor
+   */
   constructor() {
     this.map = {};
     this.i = 1;
-    this.result = [];
     this.fileCount = 1;
     this.indexMap = {};
   }
 
-  createIndex(filePath) {
-    filePath.forEach((content) => {
+  /**
+   * createIndex
+   * Creates an index map from file contents and stores in indexMap
+   * @param {Object} file - Content of file to map index
+   */
+  createIndex(file) {
+    file.forEach((content) => {
       Object.keys(content).forEach((property) => {
         const regex = /\w+/g;
         const text = content[property].toLowerCase().match(regex);
@@ -35,7 +46,13 @@ class Index {
     this.i = 1;
   }
 
-  // Get Index Method
+  /**
+   * getIndex
+   * Returns index map of file
+   * @param {Number} [doc] - specifying document to return index map
+   * @param {String} [term] - specifying term in document to return index
+   * @return {Object} Index map or {Array} index of term in specified document
+   */
   getIndex(doc, term) {
     if (!term) {
       return this.indexMap;
@@ -47,7 +64,13 @@ class Index {
     return [];
   }
 
-  // Search Index Method
+  /**
+   * searchIndex
+   * Returns index map of file
+   * @param {number} [doc] - document file to search and return index map
+   * @param {string} [terms] - terms to search for in specified document
+   * @return {Object} key pair value of search result of specified document
+   */
   searchIndex(doc, terms) {
     // Check if arguments are emapty
     if (!doc || !terms) {
@@ -55,7 +78,6 @@ class Index {
     }
     // Handle array
     terms = terms.toString();
-
     terms = terms.toLowerCase();
 
     // for varied terms
