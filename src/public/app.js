@@ -92,6 +92,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
   $scope.display = function display(file) {
     $scope.index = $scope.files.indexOf(file) + 1;
     $scope.terms = Object.keys($scope.indexMap[$scope.index]);
+    $scope.terms.sort();
     $scope.currentFile = file;
     $scope.searchFiles = [];
     $scope.searchFiles.push($scope.currentFile);
