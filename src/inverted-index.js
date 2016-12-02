@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable valid-jsdoc */
+/* eslint-disable no-undef */
+/* eslint-disable class-methods-use-this */
 
 /**
- * @class Index
+ * @class InvertedIndex
  */
-class Index {
-  // The constructor initializes
+class InvertedIndex {
   /**
    * @constructor
    */
@@ -20,8 +20,22 @@ class Index {
    * createIndex
    * Creates an index map from file contents and stores in indexMap
    * @param {Object} file - Content of file to map index
+   * @return {undefined} Creates index and stores IndexMap
    */
   createIndex(file) {
+    // Check for valid JSON array
+    if (typeof file !== 'object' || !Array.isArray(file)) {
+      return false;
+    }
+    // Check for empty JSON array
+    if (file.length <= 0) {
+      return false;
+    }
+    // Check for properties text and title
+    if (!this.checkProperties(file)) {
+      return false;
+    }
+
     file.forEach((content) => {
       Object.keys(content).forEach((property) => {
         const regex = /\w+/g;
@@ -54,10 +68,15 @@ class Index {
    * @return {Object} Index map or {Array} index of term in specified document
    */
   getIndex(doc, term) {
-    if (!term) {
+    // Return for specified document
+    if (doc && !term) {
+      return this.indexMap[doc];
+    }
+    // Return entire index
+    if (!doc && !term) {
       return this.indexMap;
     }
-
+    // Return for specified document and term
     if (doc && this.indexMap[doc][term]) {
       return this.indexMap[doc][term];
     }
@@ -72,7 +91,7 @@ class Index {
    * @return {Object} key pair value of search result of specified document
    */
   searchIndex(doc, terms) {
-    // Check if arguments are emapty
+    // Check if arguments are empty
     if (!doc || !terms) {
       return [];
     }
@@ -97,5 +116,23 @@ class Index {
     });
     if (Object.keys(results).length >= 1) return results;
     return [];
+  }
+
+  /**
+   * checkProperties
+   * Ensures that each object in file has text and title properties
+   * @param {object} file - document file to search and return index map
+   * @return {boolen} returns false if content does not text and/or title keys
+   */
+  checkProperties(file) {
+    let found = true;
+    file.forEach((content) => {
+      const properties = Object.keys(content);
+      if (properties.indexOf('title') === -1 &&
+        properties.indexOf('text') === -1) {
+        found = false;
+      }
+    });
+    return found;
   }
 }
