@@ -1,13 +1,11 @@
 /* eslint-disable no-undef */
 
-const invertedIndex = new Index();
+const invertedIndex = new InvertedIndex();
 const indexApp = angular.module('IndexApp', []);
 let fileContent = {};
 
 // Controller for file
 indexApp.controller('fileController', ['$scope', ($scope) => {
-  $scope.create = true;
-  $scope.upload = false;
   $scope.hideResult = true;
   $scope.indexPanel = true;
 
@@ -26,29 +24,42 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
   // Upload file
   $scope.uploadFile = function uploadFile() {
     const file = document.getElementById('file-selector').files[0];
+
+    if (!file) {
+      $('#msg').html('No file selected');
+      return;
+    }
+
     if (file.type !== 'application/json') {
       $('#msg').html('File MUST be JSON');
       return;
     }
 
-    if (!file) {
-      $('#msg').html('No file selected');
-    } else {
-      if ($scope.files.indexOf(file.name) !== -1) {
-        $('#msg').html('File ALREADY uploaded');
-        return;
-      }
-      $scope.files.push(file.name);
-      const fileReader = new FileReader();
-      fileReader.readAsText(file);
-      fileReader.onload = function onload() {
-        const content = fileReader.result;
+    if ($scope.files.indexOf(file.name) !== -1) {
+      $('#msg').html('File ALREADY uploaded');
+      return;
+    }
+    // Check for invalid input
+    if (file.size === 0) {
+      $('#msg').html('File cannot be EMPTY');
+      return;
+    }
+
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      const content = fileReader.result;
+      try {
         fileContent = JSON.parse(content);
         $('#msg').html('File Uploaded...');
-      };
-      $scope.create = false;
-      $scope.upload = true;
-    }
+        $('#upload').hide();
+        $('#browse').hide();
+        $('#create').show();
+        $scope.files.push(file.name);
+      } catch (err) {
+        $('#msg').html('Invalid JSON file');
+      }
+    };
+    fileReader.readAsText(file);
   };
 
   const reset = function reset() {
@@ -77,8 +88,9 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
     $scope.terms = Object.keys($scope.indexMap[$scope.fileNum]);
     $scope.terms.sort();
     $scope.index = $scope.fileNum;
-    $scope.create = true;
-    $scope.upload = false;
+    $('#browse').show();
+    $('#upload').show();
+    $('#create').hide();
     $scope.hideResult = true;
     $scope.currentFile = $scope.files[$scope.index - 1];
     $scope.searchFiles = [];
@@ -86,7 +98,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
     reset();
 
     $scope.fileObj[$scope.currentFile] = temp;
-    $('#msg').html('');
+    $('#msg').html('Index Created... Table Shown Below...');
   };
 
   $scope.display = function display(file) {
@@ -97,10 +109,12 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
     $scope.searchFiles = [];
     $scope.searchFiles.push($scope.currentFile);
     $scope.hideResult = true;
+    $('#msg').html('');
     reset();
   };
 
   $scope.search = function search() {
+    $scope.searchTerms = [];
     const input = $scope.searchInput;
     let fileIndex = 0;
 
@@ -122,7 +136,6 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
       fileIndex += 1;
       if (fileIndex) {
         $scope.searchResult[file] = invertedIndex.searchIndex(fileIndex, input);
-        $scope.searchInput = '';
       }
     });
   };
@@ -141,8 +154,14 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
   $scope.showPanel = function showPanel() {
     if ($scope.searchInput) {
       $scope.hideResult = false;
+      $scope.search();
     } else {
       $scope.hideResult = true;
     }
+  };
+
+  $scope.clear = function clear() {
+    $scope.searchInput = '';
+    $scope.searchTerms = [];
   };
 }]);
