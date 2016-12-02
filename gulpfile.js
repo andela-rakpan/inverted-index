@@ -11,7 +11,7 @@ gulp.task('browserSync', function() {
 });
 
 gulp.task('reloadJasmine', jasmine({
-    files: ['jasmine/spec/*.js']
+    files: ['src/inverted-index.js','jasmine/spec/*.js']
 }));
 
 gulp.task('start', ['reloadJasmine','browserSync'], function() {
