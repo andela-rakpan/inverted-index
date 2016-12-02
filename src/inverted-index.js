@@ -5,8 +5,6 @@
 /**
  * @class InvertedIndex
  */
- 'use strict';
-
 class InvertedIndex {
   /**
    * @constructor
