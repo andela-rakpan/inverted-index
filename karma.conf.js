@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Fri Dec 02 2016 09:50:30 GMT+0100 (WAT)
 
-module.exports = function(config) {
+module.exports = (config) => {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -81,4 +81,4 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity
   });
-}
+};

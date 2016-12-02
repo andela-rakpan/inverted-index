@@ -1,18 +1,18 @@
 
 const expectedIndex = {
-    "andela": [1,2],
-    "is": [1,2],
-    "awesome": [1],
-    "this": [2]
-  };
+  andela: [1, 2],
+  is: [1, 2],
+  awesome: [1],
+  this: [2]
+};
 
 const expectedIndex2 = {
-    'football': [1],
-    'is': [1,2],
-    'exciting': [1],
-    'music': [2],
-    'fun': [2]
-  };
+  football: [1],
+  is: [1, 2],
+  exciting: [1],
+  music: [2],
+  fun: [2]
+};
 
 /* Set up test requirements */
 let indexMap = {};
@@ -46,7 +46,7 @@ describe('Populate Index', () => {
   });
 
   it('should ensure index is correct', () => {
-    expect(invertedIndex.getIndex('1')['andela']).toEqual([1,2]);
+    expect(invertedIndex.getIndex('1')['andela']).toEqual([1, 2]);
   });
 
   it('should ensure index is not overwritten by a new JSON file - book2', () => {
@@ -56,28 +56,26 @@ describe('Populate Index', () => {
 });
 
 // Search Index Suite
-describe("Search index", () => {
+describe('Search index', () => {
   const invertedIndex = new InvertedIndex();
   invertedIndex.createIndex(book1);
   const terms = 'this is awesome';
-  const arrayTerms = ['this','is','awesome'];
+  const arrayTerms = ['this', 'is', 'awesome'];
   const result = {
-      'this': [2],
-      'is': [1,2],
-      'awesome': [1]
-    }
+    this: [2],
+    is: [1, 2],
+    awesome: [1]
+  };
 
-  it("should return correct index when searched", () => {
-    expect(invertedIndex.searchIndex(1,'this')).toEqual([2]);
+  it('should return correct index when searched', () => {
+    expect(invertedIndex.searchIndex(1, 'this')).toEqual([2]);
   });
 
   it('should handle a varied number of search terms as arguments', () => {
-    expect(invertedIndex.searchIndex(1,terms)).toEqual(result);
+    expect(invertedIndex.searchIndex(1, terms)).toEqual(result);
   });
 
   it('should handle an array of search terms.', () => {
-    expect(invertedIndex.searchIndex(1,arrayTerms)).toEqual(result);
+    expect(invertedIndex.searchIndex(1, arrayTerms)).toEqual(result);
   });
 });
-
-
