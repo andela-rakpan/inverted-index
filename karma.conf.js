@@ -23,15 +23,14 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-        './coverage/'
+      './coverage/'
     ],
 
 
     // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        './src/inverted-index.js': ['coverage'],
-        './jasmine/spec/inverted-index-test.js': ['coverage']
+      './src/inverted-index.js': ['coverage'],
+      './jasmine/spec/inverted-index-test.js': ['coverage']
     },
 
 
@@ -41,8 +40,8 @@ module.exports = function(config) {
     reporters: ['spec', 'coverage', 'coveralls', 'verbose'],
 
     coverageReporter: {
-        type: 'lcov',
-        dir: 'coverage/'
+      type: 'lcov',
+      dir: 'coverage/'
     },
 
     // web server port
@@ -54,24 +53,25 @@ module.exports = function(config) {
 
 
     // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR ||
+    // config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
 
-    // enable / disable watching file and executing tests whenever any file changes
+    // enable / disable watching file on file change
     autoWatch: true,
 
 
     // Others
     customLaunchers: {
-        Chrome_travis_ci: {
-            base: 'Chrome',
-            flags: ['--no-sandbox']
-        }
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
     },
 
     // start these browsers
-    browsers: process.env.TRAVIS ? ['Chrome_travis_ci']: ['Chrome'],
+    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
@@ -80,5 +80,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
+  });
 }
