@@ -12,4 +12,10 @@ $(document).ready(function(){
   $('#create').hide();
 
   $('#indexModal').modal('show');
+
+  $('#showTable').hide();
+
+  $('#showTable').click(function(){
+
+  });
 });

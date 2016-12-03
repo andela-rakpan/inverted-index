@@ -73,8 +73,40 @@
 
       <!--Display Index-->
       <hr />
+
           <div class="well panel panel-default col-md-9 panel-success"
-            ng-hide="indexPanel">
+            ng-hide="indexPanel" id="accordion">
+
+            <!---->
+            <div class="panel-heading">
+              <!--Search Button-->
+              <form class="" role="form">
+               <div class = "input-group input-group-lg">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary"
+                    id="showTable" ng-click="displayIndex()"> Show Table
+                  </button>
+                </span>
+                 <span class = "input-group-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                 </span>
+                 <input type = "text" class = "form-control"
+                    placeholder="Search Terms" id="search-input" ng-model="searchInput" ng-change="showPanel()">
+                 <span class = "input-group-addon">
+                   <input type="checkbox" ng-model="searchCheck" ng-change="searchAll()" /> All Files
+                </span>
+                <span class="input-group-btn">
+                  <button class="btn btn-primary search-btn"
+                        ng-click="clear()">
+                        Clear
+                  </button>
+                </span>
+              </div>
+              </form>
+            </div>
+
+          <div class="panel-body" id="index-table">
+            <!--Index Map-->
             <div class="panel-heading">
               <h2 class="panel-title text-center">File: {{currentFile}}</h2>
             </div>
@@ -100,62 +132,41 @@
               </tr>
             </table>
           </div>
-            <div class="panel-heading">
-            <!--Search Button-->
-            <form class="" role="form">
-             <div class = "input-group input-group-lg">
-               <span class = "input-group-addon">
-                 <span class="glyphicon glyphicon-search"></span>
-               </span>
-               <input type = "text" class = "form-control"
-                  placeholder="Search Terms" id="search-input" ng-model="searchInput" ng-change="showPanel()">
-               <span class = "input-group-addon">
-                 <input type="checkbox" ng-model="searchCheck" ng-change="searchAll()" /> All Files
-              </span>
-              <span class="input-group-btn">
-                <button class="btn btn-info search-btn"
-                      ng-click="clear()">
-                      Clear
-                </button>
-              </span>
-            </div>
-            </form>
-            </div>
-            <hr />
+        </div>
 
             <!--Display Search Result-->
-            <div class="well" ng-hide="hideResult">
+            <div ng-hide="hideResult">
             <h3> Search Results: </h3>
 
-            <div class="panel panel-default searchPanel panel-success"
-                ng-repeat="file in searchFiles">
-            <div class="panel-heading">
-              <h2 class="panel-title text-center">File: {{file}}</h2>
+              <div class="panel panel-default searchPanel panel-success"
+                  ng-repeat="file in searchFiles">
+              <div class="panel-heading">
+                <h2 class="panel-title text-center">File: {{file}}</h2>
+              </div>
+              <div class="panel-body">
+
+              <table class="table table-striped table-responsive table-hover">
+                <tr class="success">
+                  <th>Searched Terms</th>
+                  <th ng-repeat="num in fileObj[file]">Document -{{num}}</th>
+                </tr>
+
+                <!--Display Index-->
+                <tr ng-repeat="term in searchTerms">
+                  <td>
+                    {{term}}
+                  </td>
+                  <td ng-repeat="num in fileObj[file]">
+                    <span class="glyphicon
+                    {{( (searchResult[file][term].indexOf(num) != -1 && searchResult[file][term].indexOf(num) != undefined) ||
+                    (searchResult[file].indexOf(num) != -1 && searchResult[file].indexOf(num) != undefined) )?
+                     'glyphicon-ok' : ''}}">
+                    </span>
+                  </td>
+                </tr>
+              </table>
             </div>
-            <div class="panel-body">
-
-            <table class="table table-striped table-responsive table-hover">
-              <tr class="success">
-                <th>Searched Terms</th>
-                <th ng-repeat="num in fileObj[file]">Document -{{num}}</th>
-              </tr>
-
-              <!--Display Index-->
-              <tr ng-repeat="term in searchTerms">
-                <td>
-                  {{term}}
-                </td>
-                <td ng-repeat="num in fileObj[file]">
-                  <span class="glyphicon
-                  {{( (searchResult[file][term].indexOf(num) != -1 && searchResult[file][term].indexOf(num) != undefined) ||
-                  (searchResult[file].indexOf(num) != -1 && searchResult[file].indexOf(num) != undefined) )?
-                   'glyphicon-ok' : ''}}">
-                  </span>
-                </td>
-              </tr>
-            </table>
           </div>
-        </div>
         </div>
         </div>
 

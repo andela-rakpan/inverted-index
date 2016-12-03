@@ -8,7 +8,7 @@ let fileContent = {};
 indexApp.controller('fileController', ['$scope', ($scope) => {
   $scope.hideResult = true;
   $scope.indexPanel = true;
-
+  let tableToggle = false;
   $scope.index = 0;
   $scope.terms = [];
   $scope.indexMap = {};
@@ -67,6 +67,8 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
     $scope.searchResult = {};
     $scope.searchInput = '';
     $scope.searchCheck = false;
+    $('#showTable').hide();
+    $('#index-table').show();
   };
 
   // Create and display index
@@ -145,6 +147,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
     if (checked) {
       $scope.searchFiles = $scope.files;
       $scope.searchTerms = [];
+      $scope.search();
     } else {
       $scope.searchFiles = [];
       $scope.searchFiles.push($scope.currentFile);
@@ -155,13 +158,35 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
     if ($scope.searchInput) {
       $scope.hideResult = false;
       $scope.search();
+      $('#showTable').show();
+      $('#index-table').hide();
+      $('#showTable').html('Show Table');
+      tableToggle = true;
     } else {
       $scope.hideResult = true;
+      $('#showTable').hide();
+      $('#index-table').show();
     }
   };
 
   $scope.clear = function clear() {
     $scope.searchInput = '';
     $scope.searchTerms = [];
+    $scope.hideResult = true;
+    $('#showTable').hide();
+    $('#index-table').show();
   };
+
+  // Display index table
+  $scope.displayIndex = function displayIndex() {
+    if (tableToggle) {
+      $('#index-table').show();
+      $('#showTable').html('Hide Table');
+      tableToggle = false;
+    } else {
+      $('#index-table').hide();
+      $('#showTable').html('Show Table');
+      tableToggle = true;
+    }
+  }
 }]);
