@@ -1,19 +1,4 @@
 
-const expectedIndex = {
-  andela: [1, 2],
-  is: [1, 2],
-  awesome: [1],
-  this: [2]
-};
-
-const expectedIndex2 = {
-  football: [1],
-  is: [1, 2],
-  exciting: [1],
-  music: [2],
-  fun: [2]
-};
-
 /* Set up test requirements */
 let indexMap = {};
 
@@ -42,6 +27,13 @@ describe('Populate Index', () => {
   indexMap = invertedIndex.getIndex();
 
   it('should verify that the index is created - book1', () => {
+    const expectedIndex = {
+      andela: [1, 2],
+      is: [1, 2],
+      awesome: [1],
+      this: [2]
+    };
+
     expect(invertedIndex.getIndex('1')).toEqual(expectedIndex);
   });
 
@@ -50,6 +42,14 @@ describe('Populate Index', () => {
   });
 
   it('should ensure index is not overwritten by a new JSON file - book2', () => {
+    const expectedIndex2 = {
+      football: [1],
+      is: [1, 2],
+      exciting: [1],
+      music: [2],
+      fun: [2]
+    };
+
     invertedIndex.createIndex(book2);
     expect(invertedIndex.getIndex('2')).toEqual(expectedIndex2);
   });
