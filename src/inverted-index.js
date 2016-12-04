@@ -70,7 +70,10 @@ class InvertedIndex {
   getIndex(fileDocument, term) {
     // Return for specified document
     if (fileDocument && !term) {
-      return this.indexMap[fileDocument];
+      if (this.indexMap[fileDocument]) {
+        return this.indexMap[fileDocument];
+      }
+      return undefined;
     }
     // Return entire index
     if (!fileDocument && !term) {
@@ -80,7 +83,7 @@ class InvertedIndex {
     if (fileDocument && this.indexMap[fileDocument][term]) {
       return this.indexMap[fileDocument][term];
     }
-    return [];
+    return undefined;
   }
 
   /**

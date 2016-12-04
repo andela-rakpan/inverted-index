@@ -53,6 +53,14 @@ describe('Populate Index', () => {
     invertedIndex.createIndex(book2);
     expect(invertedIndex.getIndex('2')).toEqual(expectedIndex2);
   });
+
+  it('should check that JSON file document exists', () => {
+    expect(invertedIndex.getIndex('4')).toBe(undefined);
+  });
+
+  it('should check that JSON file document index exists', () => {
+    expect(invertedIndex.getIndex('2', 4)).toBe(undefined);
+  });
 });
 
 // Search Index Suite
