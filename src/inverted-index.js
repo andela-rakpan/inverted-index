@@ -21,12 +21,12 @@ class InvertedIndex {
    */
   createIndex(file) {
     // Call readData method to validate file
-    if (this.readData(file) === false) {
+    if (InvertedIndex.readData(file) === false) {
       return false;
     }
 
     // Call checkProperties method to check for properties text and title
-    if (this.checkProperties(file) === false) {
+    if (InvertedIndex.checkProperties(file) === false) {
       return false;
     }
 
@@ -123,7 +123,7 @@ class InvertedIndex {
    * @param {object} file - document file to search and return index map
    * @return {boolen} returns false if content does not text and/or title keys
    */
-  checkProperties(file) {
+  static checkProperties(file) {
     let found = true;
     file.forEach((content) => {
       const properties = Object.keys(content);
@@ -134,13 +134,14 @@ class InvertedIndex {
     });
     return found;
   }
+
   /**
    * readData
    * Ensures that JSON file is valid and not empty
    * @param {object} file - document file to search and return index map
    * @return {boolen} returns false if JSON file is not valid array or is empty
    */
-  readData(file) {
+  static readData(file) {
     // Check for valid JSON array
     if (typeof file !== 'object' || !Array.isArray(file)) {
       return false;
