@@ -160,7 +160,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
       $scope.search();
       $('#showTable').show();
       $('#index-table').hide();
-      $('#showTable').html('Show Table');
+      $('#showTable').html('Show Index');
       tableToggle = true;
     } else {
       $scope.hideResult = true;
@@ -181,11 +181,11 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
   $scope.displayIndex = function displayIndex() {
     if (tableToggle) {
       $('#index-table').show();
-      $('#showTable').html('Hide Table');
+      $('#showTable').html('Hide Index');
       tableToggle = false;
     } else {
       $('#index-table').hide();
-      $('#showTable').html('Show Table');
+      $('#showTable').html('Show Index');
       tableToggle = true;
     }
   }
