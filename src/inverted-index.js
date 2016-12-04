@@ -67,18 +67,18 @@ class InvertedIndex {
    * @param {String} [term] - specifying term in document to return index
    * @return {Object} Index map or {Array} index of term in specified document
    */
-  getIndex(doc, term) {
+  getIndex(fileDocument, term) {
     // Return for specified document
-    if (doc && !term) {
-      return this.indexMap[doc];
+    if (fileDocument && !term) {
+      return this.indexMap[fileDocument];
     }
     // Return entire index
-    if (!doc && !term) {
+    if (!fileDocument && !term) {
       return this.indexMap;
     }
     // Return for specified document and term
-    if (doc && this.indexMap[doc][term]) {
-      return this.indexMap[doc][term];
+    if (fileDocument && this.indexMap[fileDocument][term]) {
+      return this.indexMap[fileDocument][term];
     }
     return [];
   }
@@ -90,9 +90,9 @@ class InvertedIndex {
    * @param {string} [terms] - terms to search for in specified document
    * @return {Object} key pair value of search result of specified document
    */
-  searchIndex(doc, terms) {
+  searchIndex(fileDocument, terms) {
     // Check if arguments are empty
-    if (!doc || !terms) {
+    if (!fileDocument || !terms) {
       return [];
     }
     // Handle array
@@ -104,12 +104,12 @@ class InvertedIndex {
     const term = terms.match(regex);
 
     if (term.length === 1) {
-      return this.getIndex(doc, terms);
+      return this.getIndex(fileDocument, terms);
     }
 
     const results = {};
     term.forEach((item) => {
-      const value = this.getIndex(doc, item);
+      const value = this.getIndex(fileDocument, item);
       if (value.length >= 1) {
         results[item] = value;
       }
