@@ -23,19 +23,17 @@ class InvertedIndex {
    * @return {undefined} Creates index and stores IndexMap
    */
   createIndex(file) {
-    // Check for valid JSON array
-    if (typeof file !== 'object' || !Array.isArray(file)) {
-      return false;
-    }
-    // Check for empty JSON array
-    if (file.length <= 0) {
-      return false;
-    }
-    // Check for properties text and title
-    if (!this.checkProperties(file)) {
+    // Call readData method to validate file
+    if (this.readData(file) === false) {
       return false;
     }
 
+    // Call checkProperties method to check for properties text and title
+    if (this.checkProperties(file) === false) {
+      return false;
+    }
+
+    // File is valid. Create Index Map and store in object indexMap
     file.forEach((content) => {
       Object.keys(content).forEach((property) => {
         const regex = /\w+/g;
@@ -137,5 +135,21 @@ class InvertedIndex {
       }
     });
     return found;
+  }
+  /**
+   * readData
+   * Ensures that JSON file is valid and not empty
+   * @param {object} file - document file to search and return index map
+   * @return {boolen} returns false if JSON file is not valid array or is empty
+   */
+  readData(file) {
+    // Check for valid JSON array
+    if (typeof file !== 'object' || !Array.isArray(file)) {
+      return false;
+    }
+    // Check for empty JSON array
+    if (file.length <= 0) {
+      return false;
+    }
   }
 }

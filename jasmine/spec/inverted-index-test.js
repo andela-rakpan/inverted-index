@@ -8,15 +8,15 @@ describe('Read book data', () => {
   const invertedIndex = new InvertedIndex();
 
   it('should check that JSON file is valid JSON array', () => {
-    expect(invertedIndex.createIndex('')).toBe(false);
+    expect(invertedIndex.readData('')).toBe(false);
   });
 
   it('should check that JSON file is not empty', () => {
-    expect(invertedIndex.createIndex([])).toBe(false);
+    expect(invertedIndex.readData([])).toBe(false);
   });
 
   it('should ensure each object contains title and text properties', () => {
-    expect(invertedIndex.createIndex(myBook)).toBe(false);
+    expect(invertedIndex.checkProperties(myBook)).toBe(false);
   });
 });
 
