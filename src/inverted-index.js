@@ -10,7 +10,6 @@ class InvertedIndex {
    * @constructor
    */
   constructor() {
-    this.fileCount = 1;
     this.indexMap = {};
   }
 
@@ -52,15 +51,15 @@ class InvertedIndex {
       });
       index += 1;
     });
-    this.indexMap[this.fileCount] = map;
-    this.fileCount += 1;
+    const fileCount = Object.keys(this.indexMap).length + 1;
+    this.indexMap[fileCount] = map;
     map = {};
   }
 
   /**
    * getIndex
    * Returns index map of file
-   * @param {Number} [doc] - specifying document to return index map
+   * @param {Number} [fileDocument] - specifying document to return index map
    * @param {String} [term] - specifying term in document to return index
    * @return {Object} Index map or {Array} index of term in specified document
    */
@@ -86,7 +85,7 @@ class InvertedIndex {
   /**
    * searchIndex
    * Returns index map of file
-   * @param {number} [doc] - document file to search and return index map
+   * @param {number} [fileDocument] - document file to search and return index map
    * @param {string} [terms] - terms to search for in specified document
    * @return {Object} key pair value of search result of specified document
    */
@@ -110,7 +109,7 @@ class InvertedIndex {
     const results = {};
     term.forEach((item) => {
       const value = this.getIndex(fileDocument, item);
-      if (value.length >= 1) {
+      if (value !== undefined && value.length >= 1){
         results[item] = value;
       }
     });
