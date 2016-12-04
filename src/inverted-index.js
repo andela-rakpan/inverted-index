@@ -10,8 +10,6 @@ class InvertedIndex {
    * @constructor
    */
   constructor() {
-    this.map = {};
-    this.i = 1;
     this.fileCount = 1;
     this.indexMap = {};
   }
@@ -34,28 +32,29 @@ class InvertedIndex {
     }
 
     // File is valid. Create Index Map and store in object indexMap
+    let index = 1;
+    let map = {};
     file.forEach((content) => {
       Object.keys(content).forEach((property) => {
         const regex = /\w+/g;
         const text = content[property].toLowerCase().match(regex);
         text.forEach((word) => {
-          if (!Object.prototype.hasOwnProperty.call(this.map, word)) {
-            this.map[word] = [this.i];
+          if (!Object.prototype.hasOwnProperty.call(map, word)) {
+            map[word] = [index];
           } else {
-            this.map[word].forEach((value) => {
-              if (this.map[word].indexOf(value) !== -1) {
-                this.map[word].push(this.i);
+            map[word].forEach((value) => {
+              if (map[word].indexOf(value) !== -1) {
+                map[word].push(index);
               }
             });
           }
         });
       });
-      this.i += 1;
+      index += 1;
     });
-    this.indexMap[this.fileCount] = this.map;
+    this.indexMap[this.fileCount] = map;
     this.fileCount += 1;
-    this.map = {};
-    this.i = 1;
+    map = {};
   }
 
   /**
