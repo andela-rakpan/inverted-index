@@ -12,6 +12,6 @@ app.get('/', function(req, res){
 app.use(express.static(path.join(__dirname, 'src')));
 
 //Start server
-app.listen(3000, function(req, res){
-    console.log('Listening on port 3000...');
+app.listen(process.env.PORT, function(req, res){
+    console.log('Listening on port' + process.env.PORT);
 });
