@@ -9,7 +9,7 @@ var app = express();
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/src/views/index.html');
 });
-app.use(express.static(path.join(__dirname, 'src/public')));
+app.use(express.static(path.join(__dirname, 'src')));
 
 //Start server
 app.listen(3000, function(req, res){

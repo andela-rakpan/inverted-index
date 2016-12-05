@@ -1,37 +1,89 @@
-'use strict'
-let file = '../books.json';
-let book = [
-  {
-    "title": "Alice in Wonderland",
-    "text": "Alice falls into a rabbit hole and enters a world full of imagination."
-  },
 
-  {
-    "title": "The Lord of the Rings: The Fellowship of the Ring.",
-    "text": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
-  }
-];
+/* Set up test requirements */
+let indexMap = {};
 
-describe("Read book data", function() {
-  it("should check that JSON file is not empty", function() {
-    expect(checkFile(file)).not.toBeNull();
+/* Test suites */
+// Read Book Data suite
+describe('Read book data', () => {
+  const invertedIndex = new InvertedIndex();
+
+  it('should check that JSON file is valid JSON array', () => {
+    expect(InvertedIndex.readData('')).toBe(false);
+  });
+
+  it('should check that JSON file is not empty', () => {
+    expect(InvertedIndex.readData([])).toBe(false);
+  });
+
+  it('should ensure each object contains title and text properties', () => {
+    expect(InvertedIndex.checkProperties(myBook)).toBe(false);
   });
 });
 
-describe("Populate Index", function() {
-  it("should verify that the index is created", function() {
-    var indexMap = {};
-    expect(createIndex(file)).not.toBeNull();
+// Populate Index suite
+describe('Populate Index', () => {
+  const invertedIndex = new InvertedIndex();
+  invertedIndex.createIndex(book1);
+  indexMap = invertedIndex.getIndex();
+
+  it('should verify that the index is created - book1', () => {
+    const expectedIndex = {
+      andela: [1, 2],
+      is: [1, 2],
+      awesome: [1],
+      this: [2]
+    };
+
+    expect(invertedIndex.getIndex('1')).toEqual(expectedIndex);
   });
 
-  it("should map the string keys to the correct objects in the JSON array", function() =>{
-    var indexMap = {};
-    expect(createIndex(book)).toContain();
+  it('should ensure index is correct', () => {
+    expect(invertedIndex.getIndex('1')['andela']).toEqual([1, 2]);
+  });
+
+  it('should ensure index is not overwritten by a new JSON file - book2', () => {
+    const expectedIndex2 = {
+      football: [1],
+      is: [1, 2],
+      exciting: [1],
+      music: [2],
+      fun: [2]
+    };
+
+    invertedIndex.createIndex(book2);
+    expect(invertedIndex.getIndex('2')).toEqual(expectedIndex2);
+  });
+
+  it('should check that JSON file document exists', () => {
+    expect(invertedIndex.getIndex('4')).toBe(undefined);
+  });
+
+  it('should check that JSON file document index exists', () => {
+    expect(invertedIndex.getIndex('2', 4)).toBe(undefined);
   });
 });
 
-describe("Search index", function() {
-  it("should return an array of the correct index of the word", function() {
-    expect(checkFile(file)).not.toBeNull();
+// Search Index Suite
+describe('Search index', () => {
+  const invertedIndex = new InvertedIndex();
+  invertedIndex.createIndex(book1);
+  const terms = 'this is awesome';
+  const arrayTerms = ['this', 'is', 'awesome'];
+  const result = {
+    this: [2],
+    is: [1, 2],
+    awesome: [1]
+  };
+
+  it('should return correct index when searched', () => {
+    expect(invertedIndex.searchIndex(1, 'this')).toEqual([2]);
+  });
+
+  it('should handle a varied number of search terms as arguments', () => {
+    expect(invertedIndex.searchIndex(1, terms)).toEqual(result);
+  });
+
+  it('should handle an array of search terms.', () => {
+    expect(invertedIndex.searchIndex(1, arrayTerms)).toEqual(result);
   });
 });

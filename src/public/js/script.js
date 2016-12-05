@@ -8,4 +8,14 @@ $(document).ready(function(){
         $('#msg').html("No File Selected");
       }
   });
+
+  $('#create').hide();
+
+  $('#indexModal').modal('show');
+
+  $('#showTable').hide();
+
+  $('#showTable').click(function(){
+
+  });
 });

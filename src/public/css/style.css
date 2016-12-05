@@ -1,5 +1,7 @@
-
-.label-success {
+body {
+    font-family: Candara;
+}
+.label-info {
     font-size: 120%;
 }
 
@@ -9,5 +11,50 @@
 }
 
 .btn {
-    width: 150px;
+    height: 50px;
+
+    font-size: 140%;
+}
+
+#search-input {
+    font-size: 140%;
+}
+.search-btn {
+    width: 80px;
+}
+
+.input-group {
+    margin: auto;
+}
+
+.index-contain {
+    width: 80%;
+    margin: auto;
+}
+.well {
+    background-color: AliceBlue;
+}
+
+.navbar-brand {
+    font-size: 150%;
+}
+
+.jumbotron {
+    color: AliceBlue;
+    background-color: #36a;
+}
+
+.searchPanel {
+    margin: auto;
+}
+
+.title {
+    font-size: 250%;
+    font-weight: bold;
+
+    color: #36a;
+}
+
+.all-files {
+    font-size: 150%;
 }
