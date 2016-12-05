@@ -3,10 +3,10 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 var jasmine = require('gulp-jasmine-livereload-task');
-
+var port = process.env.PORT;
 gulp.task('browserSync', function() {
     browserSync.init({
-       proxy: "localhost:3000",
+       proxy: "localhost:" + port || "localhost:3000",
        open: false
     });
 });
