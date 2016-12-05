@@ -6,7 +6,8 @@ var jasmine = require('gulp-jasmine-livereload-task');
 
 gulp.task('browserSync', function() {
     browserSync.init({
-       proxy: "localhost:3000"
+       proxy: "localhost:3000",
+       open: false
     });
 });
 
