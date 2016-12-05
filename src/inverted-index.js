@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-/* eslint-disable class-methods-use-this */
 
 /**
  * @class InvertedIndex
@@ -85,7 +83,7 @@ class InvertedIndex {
   /**
    * searchIndex
    * Returns index map of file
-   * @param {number} [fileDocument] - document file to search and return index map
+   * @param {number} [fileDocument] - document file to search/return index map
    * @param {string} [terms] - terms to search for in specified document
    * @return {Object} key pair value of search result of specified document
    */
@@ -109,7 +107,7 @@ class InvertedIndex {
     const results = {};
     term.forEach((item) => {
       const value = this.getIndex(fileDocument, item);
-      if (value !== undefined && value.length >= 1){
+      if (value !== undefined && value.length >= 1) {
         results[item] = value;
       }
     });
