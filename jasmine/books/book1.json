@@ -1,4 +1,4 @@
-const book1 = [
+[
   {
     "title": "Andela",
     "text": "Is awesome"
