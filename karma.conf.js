@@ -16,12 +16,7 @@ module.exports = (config) => {
     // list of files / patterns to load in the browser
     files: [
       'src/inverted-index.js',
-      'jasmine/books/book1.json',
-      'jasmine/books/book2.json',
-      'jasmine/books/emptyBook.json',
-      'jasmine/books/invalidBook.json',
-      'jasmine/books/myBook.json',
-      'jasmine/spec/*.js'
+      'jasmine/testfiles/bundle.js'
     ],
 
 
@@ -34,7 +29,7 @@ module.exports = (config) => {
     // preprocess matching files before serving them to the browser
     preprocessors: {
       './src/inverted-index.js': ['coverage'],
-      './jasmine/spec/inverted-index-test.js': ['coverage']
+      './jasmine/testfiles/bundle.js': ['coverage']
     },
 
 

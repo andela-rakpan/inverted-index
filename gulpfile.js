@@ -1,8 +1,10 @@
 
 // Gulp configurations to reload browser when files change
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
-var jasmine = require('gulp-jasmine-livereload-task');
+const gulp = require('gulp');
+const browserSync = require('browser-sync').create();
+const jasmine = require('gulp-jasmine-livereload-task');
+const browserify = require('gulp-browserify');
+const rename = require('gulp-rename');
 
 gulp.task('browserSync', function() {
     browserSync.init({
@@ -17,6 +19,14 @@ gulp.task('browserSync', function() {
 gulp.task('reloadJasmine', jasmine({
     files: ['src/inverted-index.js','jasmine/spec/*.js']
 }));
+
+gulp.task('scripts', () => {
+  gulp.src('jasmine/spec/inverted-index-test.js')
+    .pipe(browserify())
+    .pipe(rename('bundle.js'))
+    .pipe(gulp.dest('jasmine/testfiles'));
+});
+
 
 gulp.task('start', ['reloadJasmine','browserSync'], function() {
     gulp.watch('src/public/css/*.css', browserSync.reload);
