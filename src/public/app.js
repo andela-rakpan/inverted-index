@@ -54,7 +54,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
         const readData = InvertedIndex.readData(fileContent);
         const checkProperties = InvertedIndex.checkProperties(fileContent);
         if (readData === false || checkProperties === false) {
-          throw 'Invalid';
+          throw new Error('Invalid');
         }
 
         $('#msg').html('File Uploaded...');
@@ -81,7 +81,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
   // Create and display index
   $scope.createInd = function createInd() {
     $scope.indexPanel = false;
-    alert('Click OK and WAIT some seconds to create Index!')
+    alert('Click OK and WAIT some seconds to create Index!');
     // Get number of documents in each file
     const numObj = Object.keys(fileContent).length;
     let i = 1;
@@ -94,7 +94,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
     $scope.fileNum += 1;
     invertedIndex.createIndex(fileContent);
     $scope.indexMap = invertedIndex.getIndex();
-    alert('Index Created!')
+    alert('Index Created!');
     $scope.terms = Object.keys($scope.indexMap[$scope.fileNum]);
     $scope.terms.sort();
     $scope.index = $scope.fileNum;
@@ -196,5 +196,5 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
       $('#showTable').html('Show Index');
       tableToggle = true;
     }
-  }
+  };
 }]);
