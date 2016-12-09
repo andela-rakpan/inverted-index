@@ -1,18 +1,20 @@
 
 /* Set up test requirements */
-let indexMap = {};
 
 /* Test suites */
 // Read Book Data suite
 describe('Read book data', () => {
   const invertedIndex = new InvertedIndex();
-
   it('should check that JSON file is valid JSON array', () => {
-    expect(InvertedIndex.readData('')).toBe(false);
+    // Read file
+    invertedIndex.createIndex(invalidBook);
+    expect(InvertedIndex.readValidateData(invalidBook)).toBe(false);
   });
 
   it('should check that JSON file is not empty', () => {
-    expect(InvertedIndex.readData([])).toBe(false);
+    // Read file
+    invertedIndex.createIndex(emptyBook);
+    expect(InvertedIndex.readValidateData(emptyBook)).toBe(false);
   });
 
   it('should ensure each object contains title and text properties', () => {
@@ -24,7 +26,6 @@ describe('Read book data', () => {
 describe('Populate Index', () => {
   const invertedIndex = new InvertedIndex();
   invertedIndex.createIndex(book1);
-  indexMap = invertedIndex.getIndex();
 
   it('should verify that the index is created - book1', () => {
     const expectedIndex = {
@@ -41,7 +42,7 @@ describe('Populate Index', () => {
     expect(invertedIndex.getIndex('1')['andela']).toEqual([1, 2]);
   });
 
-  it('should ensure index is not overwritten by a new JSON file - book2', () => {
+  it('should ensure index is not overwritten by new JSON file - book2', () => {
     const expectedIndex2 = {
       football: [1],
       is: [1, 2],

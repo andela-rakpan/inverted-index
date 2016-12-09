@@ -18,8 +18,8 @@ class InvertedIndex {
    * @return {undefined} Creates index and stores IndexMap
    */
   createIndex(file) {
-    // Call readData method to validate file
-    if (InvertedIndex.readData(file) === false) {
+    // Call readValidateData method to validate file
+    if (InvertedIndex.readValidateData(file) === false) {
       return false;
     }
 
@@ -134,12 +134,12 @@ class InvertedIndex {
   }
 
   /**
-   * readData
+   * readValidateData
    * Ensures that JSON file is valid and not empty
    * @param {object} file - document file to search and return index map
    * @return {boolen} returns false if JSON file is not valid array or is empty
    */
-  static readData(file) {
+  static readValidateData(file) {
     // Check for valid JSON array
     if (typeof file !== 'object' || !Array.isArray(file)) {
       return false;
