@@ -115,7 +115,7 @@
             <table class="table table-striped table-responsive table-hover">
               <tr class="success">
                 <th>Terms</th>
-                <th ng-repeat="num in fileObj[currentFile]"> Document-{{num}} </th>
+                <th ng-repeat="title in titles[currentFile]"> {{title}} </th>
               </tr>
 
               <!--Display Index-->
@@ -148,7 +148,7 @@
               <table class="table table-striped table-responsive table-hover">
                 <tr class="success">
                   <th>Searched Terms</th>
-                  <th ng-repeat="num in fileObj[file]">Document -{{num}}</th>
+                  <th ng-repeat="title in titles[file]">{{title}}</th>
                 </tr>
 
                 <!--Display Index-->

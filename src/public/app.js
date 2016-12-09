@@ -17,7 +17,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
   $scope.searchTerms = [];
   $scope.searchFiles = [];
   $scope.currentFile = '';
-
+  $scope.titles = {};
   $scope.fileObj = {};
 
 
@@ -51,7 +51,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
       try {
         fileContent = JSON.parse(content);
 
-        const readData = InvertedIndex.readData(fileContent);
+        const readData = InvertedIndex.readValidateData(fileContent);
         const checkProperties = InvertedIndex.checkProperties(fileContent);
         if (readData === false || checkProperties === false) {
           throw new Error('Invalid');
@@ -86,8 +86,10 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
     const numObj = Object.keys(fileContent).length;
     let i = 1;
     const temp = [];
+    const title = [];
     while (i <= numObj) {
       temp.push(i);
+      title.push(fileContent[i-1]['title']);
       i += 1;
     }
 
@@ -108,6 +110,7 @@ indexApp.controller('fileController', ['$scope', ($scope) => {
     reset();
 
     $scope.fileObj[$scope.currentFile] = temp;
+    $scope.titles[$scope.currentFile] = title;
     $('#msg').html('Index Created... Table Shown Below...');
   };
 
