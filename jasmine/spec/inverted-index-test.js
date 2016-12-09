@@ -1,5 +1,10 @@
 
-/* Set up test requirements */
+/* Require test files */
+const book1 = require('../books/book1.json');
+const book2 = require('../books/book2.json');
+const emptyBook = require('../books/emptyBook.json');
+const invalidBook = require('../books/invalidBook.json');
+const myBook = require('../books/myBook.json');
 
 /* Test suites */
 // Read Book Data suite
