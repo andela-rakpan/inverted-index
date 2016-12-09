@@ -1,0 +1,11 @@
+const book1 = [
+  {
+    "title": "Andela",
+    "text": "Is awesome"
+  },
+  {
+    "title": "This",
+    "text": "Is Andela"
+  }
+]
+

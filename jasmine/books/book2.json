@@ -1,0 +1,10 @@
+book2 = [
+    {
+      "title": "Football",
+      "text": "Is exciting"
+    },
+    {
+      "title": "Music",
+      "text": "is fun"
+    }
+];
